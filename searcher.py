@@ -21,7 +21,7 @@ def search_loop(searcher, analyzer):
             return
 
         print("Searching for:", command)
-        query = QueryParser("text", analyzer).parse(command) #利用 QueryParser 剖析查詢語句，支援 Lucene 查詢語法，請參閱 Lucene 文件
+        query = QueryParser("text", analyzer).parse(command) #利用 QueryParser 剖析查詢語句，支援 Lucene 查詢語法，請參閱 Lucene 文件。目前針對 Document 的 text 欄位進行查詢
         start = datetime.now()
         scoreDocs = searcher.search(query, MAX_COUNT).scoreDocs #進行搜尋，並取得搜尋結果document
         duration = datetime.now() - start
