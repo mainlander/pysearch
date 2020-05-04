@@ -9,6 +9,7 @@ from org.apache.lucene.store import SimpleFSDirectory
 
 from org.apache.lucene.analysis.core import WhitespaceAnalyzer
 from org.apache.lucene.index import IndexWriter, IndexWriterConfig
+from org.apache.lucene.search.similarities import BM25Similarity
 
 
 INPUT_DIR = 'T/' #要建立索引的來源檔案目錄
@@ -32,6 +33,7 @@ lucene.initVM()
 store = SimpleFSDirectory(Paths.get(INDEX_DIR)) #建立以檔案目錄方式存放的索引
 analyzer = WhitespaceAnalyzer() #使用以空白字元作為分隔的內容分析器 (因為分詞結果中間已經以空白隔開了)
 config = IndexWriterConfig(analyzer)
+config.setSimilarity(BM25Similarity()) #設定使用BM25算分方法
 writer = IndexWriter(store, config) #建立 IndexWriter 索引寫入器
 
 for input_file in glob.iglob(INPUT_DIR + '**/*.txt', recursive=True): #找出目錄中所有的檔案 

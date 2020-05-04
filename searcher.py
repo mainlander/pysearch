@@ -8,6 +8,7 @@ from org.apache.lucene.analysis.core import WhitespaceAnalyzer
 from org.apache.lucene.search import IndexSearcher
 from org.apache.lucene.index import DirectoryReader
 from org.apache.lucene.queryparser.classic import QueryParser
+from org.apache.lucene.search.similarities import BM25Similarity
 
 INDEX_DIR = 'lucene_index/' #建立出來的索引檔的目錄
 
@@ -38,6 +39,7 @@ lucene.initVM()
 
 store = SimpleFSDirectory(Paths.get(INDEX_DIR)) #讀取索引檔的目錄
 searcher = IndexSearcher(DirectoryReader.open(store)) #建立 IndexSearcher 搜尋器
+searcher.setSimilarity(BM25Similarity()) #設定使用BM25算分方法
 analyzer = WhitespaceAnalyzer() #使用空白字元分析器
 
 search_loop(searcher, analyzer) #開始搜尋
